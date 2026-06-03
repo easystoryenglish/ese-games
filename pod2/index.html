@@ -125,6 +125,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .next-level-btn{width:100%;font-size:15px;font-weight:600;padding:.875rem;cursor:pointer;border-radius:12px;background:#3B6D11;color:#fff;border:none;margin-bottom:.5rem;transition:background .15s}
 .next-level-btn:hover{background:#2d5409}
 .replay-btn{width:100%;font-size:15px;font-weight:600;padding:.875rem;cursor:pointer;border-radius:12px;background:#EAE0F5;color:#3C3489;border:1px solid #BDA8D3}
+.home-btn{display:block;text-align:center;margin-top:.75rem;font-size:14px;font-weight:600;color:#7B5EA7;background:#EAE0F5;border:1px solid #BDA8D3;border-radius:12px;padding:.75rem;text-decoration:none;transition:background .15s}
+.home-btn:hover{background:#DDD0F0}
 .hidden{display:none}
 </style>
 </head>
@@ -174,6 +176,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <span class="ts-label">Total Score</span>
     <span class="ts-val" id="total-score">0 pts</span>
   </div>
+  <a href="https://easystoryenglish.github.io/ese-games/" class="home-btn">🏠 Back to Home</a>
 </div>
 
 <!-- ══════════ GAME SCREEN ══════════ -->
@@ -263,6 +266,51 @@ var sentAudio={"order":"data:audio/mp3;base64,SUQzBAAAAAAAbVRJVDIAAAAhAAADSSB3b3
 var totalScores={1:0,2:0,3:0};
 var levelDone={1:false,2:false,3:false};
 var currentLevel=0;
+
+// ── SOUND EFFECTS ──
+var audioCtx = null;
+function getAudioCtx(){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  return audioCtx;
+}
+function playCorrectSfx(){
+  try{
+    var ctx = getAudioCtx();
+    var t = ctx.currentTime;
+    // Happy rising beep
+    [523, 659, 784].forEach(function(freq, i){
+      var o = ctx.createOscillator();
+      var g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      o.type = 'sine';
+      g.gain.setValueAtTime(0, t + i*0.12);
+      g.gain.linearRampToValueAtTime(0.3, t + i*0.12 + 0.02);
+      g.gain.linearRampToValueAtTime(0, t + i*0.12 + 0.15);
+      o.start(t + i*0.12);
+      o.stop(t + i*0.12 + 0.2);
+    });
+  } catch(e){}
+}
+function playWrongSfx(){
+  try{
+    var ctx = getAudioCtx();
+    var t = ctx.currentTime;
+    // Low sad beep
+    [300, 250].forEach(function(freq, i){
+      var o = ctx.createOscillator();
+      var g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      o.type = 'sawtooth';
+      g.gain.setValueAtTime(0, t + i*0.15);
+      g.gain.linearRampToValueAtTime(0.2, t + i*0.15 + 0.02);
+      g.gain.linearRampToValueAtTime(0, t + i*0.15 + 0.18);
+      o.start(t + i*0.15);
+      o.stop(t + i*0.15 + 0.25);
+    });
+  } catch(e){}
+}
 
 function goHub(){
   showScreen('screen-hub');
@@ -415,6 +463,7 @@ function l1Select(el,isRight,w,c){
   document.querySelectorAll('.choice').forEach(function(x){x.classList.add('disabled');});
   var fb=document.getElementById('l1-fb');
   if(isRight){
+    playCorrectSfx();
     el.classList.add('correct');
     document.getElementById('l1-word').className='q-word';
     var pts=l1lives===3?10:l1lives===2?7:4;
@@ -424,6 +473,7 @@ function l1Select(el,isRight,w,c){
     document.getElementById('score-display').textContent=l1score;
     document.getElementById('l1-next').disabled=false;
   } else {
+    playWrongSfx();
     el.classList.add('wrong');l1lives--;
     l1results.push({word:w.word,ok:false,def:w.correct.sub});
     if(l1lives===0){
@@ -499,6 +549,7 @@ function l2Select(btn,word,q){
   var qi=document.getElementById('l2-qimg');
   blank.textContent=word;
   if(isRight){
+    playCorrectSfx();
     l2answered=true;
     document.querySelectorAll('.opt2').forEach(function(b){b.classList.add('disabled');});
     blank.classList.add('correct');
@@ -509,6 +560,7 @@ function l2Select(btn,word,q){
     document.getElementById('score-display').textContent=l2score;
     document.getElementById('l2-next').disabled=false;
   } else {
+    playWrongSfx();
     l2lives--;
     btn.classList.add('used','disabled');
     blank.classList.add('wrong');
@@ -616,6 +668,7 @@ function l3Check(){
   var correct=q.sentence.join(' ');
   var az=document.getElementById('l3-zone');
   if(player===correct){
+    playCorrectSfx();
     l3answered=true;
     az.classList.add('correct');
     q.chars.forEach(function(ch){
@@ -628,6 +681,7 @@ function l3Check(){
     document.getElementById('l3-check').disabled=true;
     document.getElementById('l3-next').classList.remove('hidden');
   } else {
+    playWrongSfx();
     az.classList.add('wrong');
     setTimeout(function(){az.classList.remove('wrong');},400);
     document.getElementById('l3-fb').innerHTML='❌ <span class="fb-wrong">Not quite — try again!</span>';
