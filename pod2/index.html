@@ -46,8 +46,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .prog-fill{height:100%;background:#7B5EA7;border-radius:4px;transition:width .4s}
 .card{background:#fff;border-radius:16px;border:0.5px solid #e0d8f0;padding:1.25rem;margin-bottom:.875rem}
 .q-round{font-size:11px;color:#aaa;text-align:center;letter-spacing:.04em;margin-bottom:.625rem}
-.play-btn{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#7B5EA7;background:#EAE0F5;border:0.5px solid #BDA8D3;border-radius:20px;padding:6px 16px;cursor:pointer;margin:.5rem auto;transition:background .15s}
-.play-btn:hover{background:#DDD0F0}
+.play-btn{display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:700;color:#fff;background:linear-gradient(135deg,#E8830A,#F5A623);border:none;border-radius:24px;padding:10px 24px;cursor:pointer;margin:.5rem auto;transition:opacity .15s,transform .1s;box-shadow:0 3px 10px rgba(232,131,10,.35)}
+.play-btn:hover{opacity:.9}
+.play-btn:active{transform:scale(.96)}
 .feedback{text-align:center;min-height:36px;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:.75rem;font-size:14px}
 .fb-correct{color:#3B6D11;font-weight:600}
 .fb-wrong{color:#A32D2D;font-weight:600}
@@ -127,6 +128,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .replay-btn{width:100%;font-size:15px;font-weight:600;padding:.875rem;cursor:pointer;border-radius:12px;background:#EAE0F5;color:#3C3489;border:1px solid #BDA8D3}
 .home-btn{display:block;text-align:center;margin-top:.75rem;font-size:14px;font-weight:600;color:#7B5EA7;background:#EAE0F5;border:1px solid #BDA8D3;border-radius:12px;padding:.75rem;text-decoration:none;transition:background .15s}
 .home-btn:hover{background:#DDD0F0}
+.promo-box{background:#fff;border-radius:16px;border:0.5px solid #e0d8f0;padding:1.25rem;margin-top:1rem;text-align:center}
+.promo-label{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem}
+.promo-title{font-size:15px;font-weight:700;color:#3C3489;margin-bottom:.25rem}
+.promo-sub{font-size:12px;color:#999;margin-bottom:.875rem}
+.promo-btns{display:flex;flex-direction:column;gap:8px}
+.promo-btn{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;padding:.75rem;border-radius:12px;text-decoration:none;transition:opacity .15s}
+.promo-btn:hover{opacity:.85}
+.promo-btn.spotify{background:#1DB954;color:#fff}
+.promo-btn.youtube{background:#FF0000;color:#fff}
+.promo-next{background:#F5F0FF;border-radius:16px;border:0.5px solid #BDA8D3;padding:1rem 1.25rem;margin-top:.75rem;display:flex;align-items:center;gap:12px}
+.promo-next-icon{font-size:28px;flex-shrink:0}
+.promo-next-info{text-align:left}
+.promo-next-label{font-size:10px;font-weight:700;color:#7B5EA7;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.promo-next-title{font-size:14px;font-weight:700;color:#3C3489;margin-bottom:2px}
+.promo-next-sub{font-size:12px;color:#999}
 .hidden{display:none}
 </style>
 </head>
@@ -195,7 +211,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="q-round" id="l1-round">Question 1 of 5</div>
 <div class="q-word hidden-word" id="l1-word">order</div>
       <div class="q-ipa" id="l1-ipa">/ˈɔːrdər/ · verb</div>
-      <button class="play-btn" onclick="l1Play()">🔊 Hear the word</button>
+      <button class="play-btn" onclick="l1Play()">▶ Hear the word</button>
     </div>
     <div class="choices" id="l1-choices"></div>
     <div class="feedback" id="l1-fb"><span class="fb-hint">Choose the correct card</span></div>
@@ -208,7 +224,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="q-round" id="l2-round">Question 1 of 5</div>
       <img id="l2-qimg" src="" style="width:100%;max-width:200px;height:auto;display:block;margin:0 auto .875rem;border-radius:10px;filter:blur(8px);opacity:.4;transition:filter .4s,opacity .4s">
       <div class="sentence-wrap" id="l2-sentence"></div>
-      <button class="play-btn" onclick="l2Play()">🔊 Hear the sentence</button>
+      <button class="play-btn" onclick="l2Play()">▶ Hear the sentence</button>
     </div>
     <div class="options2" id="l2-options"></div>
     <div class="feedback" id="l2-fb"><span class="fb-hint">Tap the correct word</span></div>
@@ -222,7 +238,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="char-row" id="l3-chars"></div>
       <div class="speaker-label" id="l3-speaker"></div>
       <div class="context-txt" id="l3-context"></div>
-      <button class="play-btn" onclick="l3Play()">🔊 Hear the sentence</button>
+      <button class="play-btn" onclick="l3Play()">▶ Hear the sentence</button>
       <div class="answer-zone" id="l3-zone">
         <span class="answer-placeholder" id="l3-ph">Tap words below to build the sentence</span>
       </div>
@@ -251,6 +267,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="finish-btn" id="finish-btn" onclick="finishLevel()">Back to levels ✓</button>
       <button class="next-level-btn hidden" id="next-level-btn" onclick="goNextLevel()">Next → Level <span id="next-level-num">2</span></button>
       <button class="replay-btn" onclick="replayLevel()">🔁 Play again</button>
+      <!-- PROMO — shown after Level 3 -->
+      <div class="promo-box hidden" id="promo-block">
+        <div class="promo-label">🎉 You finished all 3 levels!</div>
+        <div class="promo-title">Want more English stories?</div>
+        <div class="promo-sub">Listen to the full podcast — new episodes every week</div>
+        <div class="promo-btns">
+          <a class="promo-btn spotify" href="https://open.spotify.com/show/4rnqN6pvaScLTI4RpvOiC1" target="_blank">
+            🎙️ Listen on Spotify — Free
+          </a>
+          <a class="promo-btn youtube" href="https://www.youtube.com/@EasyStoryENG" target="_blank">
+            📺 Watch on YouTube — Free
+          </a>
+        </div>
+      </div>
+      <!-- NEXT EPISODE TEASER -->
+      <div class="promo-next hidden" id="promo-next">
+        <div class="promo-next-icon">🛒</div>
+        <div class="promo-next-info">
+          <div class="promo-next-label">Coming next</div>
+          <div class="promo-next-title">POD-3 — At the Market</div>
+          <div class="promo-next-sub">Follow us so you don't miss it!</div>
+        </div>
+      </div>
     </div>
   </div>
   <audio id="sfx" preload="auto"></audio>
@@ -389,6 +428,16 @@ function showResult(score,correct,total,elapsed,reviewItems){
   document.getElementById('res-score').textContent=score;
   document.getElementById('res-correct').textContent=correct+'/'+total;
   document.getElementById('res-time').textContent=elapsed+'s';
+  // Show promo only after Level 3
+  var promoBlock=document.getElementById('promo-block');
+  var promoNext=document.getElementById('promo-next');
+  if(currentLevel===3){
+    promoBlock.classList.remove('hidden');
+    promoNext.classList.remove('hidden');
+  } else {
+    promoBlock.classList.add('hidden');
+    promoNext.classList.add('hidden');
+  }
   var rv=document.getElementById('review');
   rv.innerHTML='';
   reviewItems.forEach(function(r){
@@ -553,6 +602,7 @@ function l2Select(btn,word,q){
     l2answered=true;
     document.querySelectorAll('.opt2').forEach(function(b){b.classList.add('disabled');});
     blank.classList.add('correct');
+    var qi2=document.getElementById('l2-qimg');if(qi2){qi2.style.filter='none';qi2.style.opacity='1';}
     var pts=l2lives===3?10:l2lives===2?7:4;
     l2score+=pts;l2correct++;
     l2results.push({word:q.word,ok:true,def:'"'+(q.before?q.before+' ':'')+q.word+(q.after?' '+q.after:'')+'"'});
@@ -569,6 +619,7 @@ function l2Select(btn,word,q){
       l2answered=true;
       document.querySelectorAll('.opt2').forEach(function(b){b.classList.add('disabled');});
       blank.textContent=q.word;blank.classList.add('correct');
+      var qi2c=document.getElementById('l2-qimg');if(qi2c){qi2c.style.filter='none';qi2c.style.opacity='1';}
       l2results.push({word:q.word,ok:false,def:'"'+(q.before?q.before+' ':'')+q.word+(q.after?' '+q.after:'')+'"'});
       document.getElementById('l2-fb').innerHTML='❌ <span class="fb-wrong">Answer: <strong>'+q.word+'</strong></span>';
       document.getElementById('l2-next').disabled=false;
