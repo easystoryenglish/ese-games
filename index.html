@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy Story English — Game Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F0FF;min-height:100vh;padding:1.5rem 1rem 3rem}
+.wrap{max-width:480px;margin:0 auto}
+
+/* Header */
+.site-header{text-align:center;margin-bottom:2rem}
+.logo-badge{display:inline-block;background:#7B5EA7;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.08em;margin-bottom:.625rem}
+.site-title{font-size:26px;font-weight:700;color:#3C3489;margin-bottom:.25rem}
+.site-sub{font-size:14px;color:#999;margin-bottom:1rem}
+.podcast-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#7B5EA7;background:#EAE0F5;border:0.5px solid #BDA8D3;border-radius:20px;padding:5px 14px;text-decoration:none;transition:background .15s}
+.podcast-link:hover{background:#DDD0F0}
+
+/* Section label */
+.section-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem;padding-left:.25rem}
+
+/* Episode cards */
+.ep-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.ep-card{background:#fff;border-radius:16px;border:0.5px solid #e0d8f0;padding:1rem 1.25rem;display:flex;align-items:center;gap:14px;text-decoration:none;transition:border-color .15s,box-shadow .15s;position:relative;overflow:hidden}
+.ep-card.available:hover{border-color:#7B5EA7;box-shadow:0 2px 16px rgba(123,94,167,.15);transform:translateY(-1px)}
+.ep-card.soon{opacity:.55;cursor:default}
+.ep-card.soon:hover{transform:none;box-shadow:none}
+
+.ep-num{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:#EAE0F5;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ep-num .pod{font-size:8px;font-weight:700;color:#9B82C4;letter-spacing:.06em}
+.ep-num .num{font-size:20px;font-weight:700;color:#7B5EA7;line-height:1}
+.ep-card.soon .ep-num{background:#f0f0f0}
+.ep-card.soon .pod{color:#bbb}
+.ep-card.soon .num{color:#ccc}
+
+.ep-info{flex:1;min-width:0}
+.ep-title{font-size:15px;font-weight:600;color:#3C3489;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ep-card.soon .ep-title{color:#bbb}
+.ep-words{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ep-chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:#EAE0F5;color:#7B5EA7}
+.ep-card.soon .ep-chip{background:#f0f0f0;color:#ccc}
+
+.ep-action{flex-shrink:0;text-align:center}
+.play-pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;background:#7B5EA7;color:#fff;white-space:nowrap}
+.soon-pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;background:#f0f0f0;color:#bbb}
+
+/* New badge */
+.new-dot{position:absolute;top:12px;right:12px;background:#E24B4A;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:.04em}
+
+/* Footer */
+.footer{text-align:center;margin-top:1rem}
+.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:.75rem}
+.footer-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#7B5EA7;text-decoration:none;background:#EAE0F5;border:0.5px solid #BDA8D3;border-radius:20px;padding:6px 14px;transition:background .15s}
+.footer-link:hover{background:#DDD0F0}
+.footer-copy{font-size:11px;color:#ccc}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="site-header">
+    <div class="logo-badge">EASY STORY ENGLISH</div>
+    <div class="site-title">🎮 Podcast Games</div>
+    <div class="site-sub">Play along with every episode · Free forever</div>
+    <a class="podcast-link" href="https://open.spotify.com/show/4rnqN6pvaScLTI4RpvOiC1" target="_blank">
+      🎙️ Listen on Spotify
+    </a>
+  </div>
+
+  <!-- Available -->
+  <div class="section-label">Available Now</div>
+  <div class="ep-grid">
+
+    <a class="ep-card available" href="pod2/index.html">
+      <div class="ep-num"><div class="pod">POD</div><div class="num">2</div></div>
+      <div class="ep-info">
+        <div class="ep-title">At the Café ☕</div>
+        <div class="ep-words">
+          <span class="ep-chip">order</span>
+          <span class="ep-chip">please</span>
+          <span class="ep-chip">coffee</span>
+          <span class="ep-chip">wait</span>
+          <span class="ep-chip">ready</span>
+        </div>
+      </div>
+      <div class="ep-action"><span class="play-pill">▶ Play</span></div>
+      <div class="new-dot">NEW</div>
+    </a>
+
+  </div>
+
+  <!-- Coming Soon -->
+  <div class="section-label">Coming Soon</div>
+  <div class="ep-grid">
+
+    <div class="ep-card soon">
+      <div class="ep-num"><div class="pod">POD</div><div class="num">1</div></div>
+      <div class="ep-info">
+        <div class="ep-title">Nice to Meet You 👋</div>
+        <div class="ep-words">
+          <span class="ep-chip">hello</span>
+          <span class="ep-chip">name</span>
+          <span class="ep-chip">meet</span>
+          <span class="ep-chip">nice</span>
+          <span class="ep-chip">from</span>
+        </div>
+      </div>
+      <div class="ep-action"><span class="soon-pill">🔒 Soon</span></div>
+    </div>
+
+    <div class="ep-card soon">
+      <div class="ep-num"><div class="pod">POD</div><div class="num">3</div></div>
+      <div class="ep-info">
+        <div class="ep-title">At the Market 🛒</div>
+        <div class="ep-words">
+          <span class="ep-chip">buy</span>
+          <span class="ep-chip">price</span>
+          <span class="ep-chip">cheap</span>
+          <span class="ep-chip">fresh</span>
+          <span class="ep-chip">how much</span>
+        </div>
+      </div>
+      <div class="ep-action"><span class="soon-pill">🔒 Soon</span></div>
+    </div>
+
+    <div class="ep-card soon">
+      <div class="ep-num"><div class="pod">POD</div><div class="num">4</div></div>
+      <div class="ep-info">
+        <div class="ep-title">On the Bus 🚌</div>
+        <div class="ep-words">
+          <span class="ep-chip">stop</span>
+          <span class="ep-chip">ticket</span>
+          <span class="ep-chip">next</span>
+          <span class="ep-chip">far</span>
+          <span class="ep-chip">arrive</span>
+        </div>
+      </div>
+      <div class="ep-action"><span class="soon-pill">🔒 Soon</span></div>
+    </div>
+
+    <div class="ep-card soon">
+      <div class="ep-num"><div class="pod">POD</div><div class="num">5</div></div>
+      <div class="ep-info">
+        <div class="ep-title">Weekend Plans 📅</div>
+        <div class="ep-words">
+          <span class="ep-chip">weekend</span>
+          <span class="ep-chip">plan</span>
+          <span class="ep-chip">maybe</span>
+          <span class="ep-chip">free</span>
+          <span class="ep-chip">busy</span>
+        </div>
+      </div>
+      <div class="ep-action"><span class="soon-pill">🔒 Soon</span></div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-links">
+      <a class="footer-link" href="https://www.youtube.com/@EasyStoryENG" target="_blank">📺 YouTube</a>
+      <a class="footer-link" href="https://open.spotify.com/show/4rnqN6pvaScLTI4RpvOiC1" target="_blank">🎙️ Spotify</a>
+    </div>
+    <div class="footer-copy">© Easy Story English · Free to play · Always</div>
+  </div>
+
+</div>
+</body>
+</html>
