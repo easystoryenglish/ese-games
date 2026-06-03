@@ -190,8 +190,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="l1-area">
     <div class="card">
       <div class="q-round" id="l1-round">Question 1 of 5</div>
-      <img id="l1-qimg" src="" style="width:100%;max-width:260px;height:auto;object-fit:contain;margin:.25rem auto .75rem;display:block;filter:blur(8px);opacity:.4;border-radius:12px;transition:filter .4s,opacity .4s">
-      <div class="q-word hidden-word" id="l1-word">order</div>
+<div class="q-word hidden-word" id="l1-word">order</div>
       <div class="q-ipa" id="l1-ipa">/ˈɔːrdər/ · verb</div>
       <button class="play-btn" onclick="l1Play()">🔊 Hear the word</button>
     </div>
@@ -292,7 +291,9 @@ function updateHub(){
 }
 function startLevel(n){
   var card=document.getElementById('hub-l'+n);
-  if(card.classList.contains('locked')) return;
+  // Allow if level 1, or previous level done
+  var canPlay=(n===1)||(n===2&&levelDone[1])||(n===3&&levelDone[2]);
+  if(!canPlay) return;
   currentLevel=n;
   document.getElementById('game-badge').textContent='POD-2 · LEVEL '+n;
   showScreen('screen-game');
@@ -309,6 +310,7 @@ function finishLevel(){
 }
 function goNextLevel(){
   levelDone[currentLevel]=true;
+  updateHub(); // unlock next level card before starting
   startLevel(currentLevel+1);
 }
 function replayLevel(){
@@ -391,8 +393,6 @@ function l1Render(){
   document.getElementById('l1-word').textContent=w.word;
   document.getElementById('l1-word').className='q-word hidden-word';
   document.getElementById('l1-ipa').textContent=w.ipa;
-  var qi=document.getElementById('l1-qimg');
-  qi.src=cardImages[w.word];qi.style.filter='blur(8px)';qi.style.opacity='0.4';
   document.getElementById('l1-fb').innerHTML='<span class="fb-hint">Choose the correct card</span>';
   document.getElementById('l1-next').disabled=true;
   document.getElementById('l1-next').textContent=l1qi===4?'See results →':'Next word →';
@@ -414,10 +414,8 @@ function l1Select(el,isRight,w,c){
   l1answered=true;
   document.querySelectorAll('.choice').forEach(function(x){x.classList.add('disabled');});
   var fb=document.getElementById('l1-fb');
-  var qi=document.getElementById('l1-qimg');
   if(isRight){
     el.classList.add('correct');
-    qi.style.filter='none';qi.style.opacity='1';
     document.getElementById('l1-word').className='q-word';
     var pts=l1lives===3?10:l1lives===2?7:4;
     l1score+=pts;l1correct++;
@@ -432,7 +430,6 @@ function l1Select(el,isRight,w,c){
       document.querySelectorAll('.choice').forEach(function(x){
         if(x.querySelector('img').alt===w.correct.label) x.classList.add('correct');
       });
-      qi.style.filter='none';qi.style.opacity='1';
       document.getElementById('l1-word').className='q-word';
       fb.innerHTML='❌ <span class="fb-wrong">No lives left! Answer: <strong>'+w.word+'</strong></span>';
       document.getElementById('l1-next').disabled=false;
@@ -505,7 +502,6 @@ function l2Select(btn,word,q){
     l2answered=true;
     document.querySelectorAll('.opt2').forEach(function(b){b.classList.add('disabled');});
     blank.classList.add('correct');
-    qi.style.filter='none';qi.style.opacity='1';
     var pts=l2lives===3?10:l2lives===2?7:4;
     l2score+=pts;l2correct++;
     l2results.push({word:q.word,ok:true,def:'"'+(q.before?q.before+' ':'')+q.word+(q.after?' '+q.after:'')+'"'});
@@ -521,7 +517,6 @@ function l2Select(btn,word,q){
       l2answered=true;
       document.querySelectorAll('.opt2').forEach(function(b){b.classList.add('disabled');});
       blank.textContent=q.word;blank.classList.add('correct');
-      qi.style.filter='none';qi.style.opacity='1';
       l2results.push({word:q.word,ok:false,def:'"'+(q.before?q.before+' ':'')+q.word+(q.after?' '+q.after:'')+'"'});
       document.getElementById('l2-fb').innerHTML='❌ <span class="fb-wrong">Answer: <strong>'+q.word+'</strong></span>';
       document.getElementById('l2-next').disabled=false;
